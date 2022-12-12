@@ -1,0 +1,37 @@
+{
+  "name": "vyaguta-okr",
+  "regions": ["ap-south-1"],
+  "lambda": {
+    "role": "arn:aws:iam::009409476372:role/vyaguta_role",
+    "runtime": "nodejs16.x",
+    "vpc": {
+      "subnets": ["subnet-0c01237745450718d", "subnet-013a81d0c176dee69"],
+      "security_groups": ["sg-089bac579bb98eab7"]
+    }
+  },
+  "stages": {
+    "dev": {
+      "domain": "dev-okr.vyaguta.lftechnology.com.np",
+      "zone": "vyaguta.lftechnology.com.np"
+    },
+    "uat": {
+      "domain": "uat-okr.vyaguta.lftechnology.com.np",
+      "zone": "vyaguta.lftechnology.com.np"
+    },
+    "qa": {
+      "domain": "qa-okr.vyaguta.lftechnology.com.np",
+      "zone": "vyaguta.lftechnology.com.np"
+    },
+    "staging": {},
+    "dirty": {}
+  },
+  "cors": {
+    "enable": true,
+    "allowed_methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
+
+    "allowed_headers": ["*"]
+  },
+  "error_pages": {
+    "disable": true
+  }
+}
