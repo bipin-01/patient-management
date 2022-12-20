@@ -8,6 +8,7 @@ var contactsReducer_1 = require("./reducers/contactsReducer");
 var reducer = redux_1.combineReducers({
     userLogin: userReducers_1.userLoginReducer,
     userRegister: userReducers_1.userRegisterReducer,
+    userUpdate: userReducers_1.userUpdateReducer,
     contactsList: contactsReducer_1.contactListReducer,
     contactsCreate: contactsReducer_1.contactCreateReducer,
     contactsUpdate: contactsReducer_1.contactsUpdateReducer,

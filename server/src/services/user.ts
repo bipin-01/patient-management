@@ -5,7 +5,7 @@ import UserModel from '../models/user';
 import Logger from 'utils/logger';
 import generateToken from '@/utils/generateToken';
 
-const logger = new Logger('services/okr-areas');
+const logger = new Logger('services/user');
 
 export async function create(userData: any) {
   logger.info(`Creating User`);
@@ -22,8 +22,6 @@ export async function create(userData: any) {
   const user = await UserModel.create(data);
   const token = generateToken(user._id);
 
-  console.log('user', user);
-
   const { _id } = user;
   if (user) {
     return {
@@ -39,7 +37,6 @@ export async function authUser(userData: any) {
   logger.info(`Authenticating User`);
 
   const { email, password } = userData;
-  // const data = userData;
 
   const userExists: any = await UserModel.findOne({ email });
   if (userExists && (await userExists.matchPassword(password))) {

@@ -9,6 +9,7 @@ import LoginScreen from "./components/Screens/LoginScreen/LoginScreen";
 import RegisterScreen from "./components/Screens/RegisterScreen/RegisterScreen";
 import CreateContact from "./components/Screens/CreateContact/CreateContact";
 import SingleContacts from "./components/Screens/SingleContacts/SingleContacts";
+import ProfileScreen from './components/Screens/ProfileScreen/ProfileScreen';
 
 function App() {
 
@@ -21,10 +22,14 @@ function App() {
           <Routes>
             <Route path='/' element={<LandingPage />} />
             <Route path='/login' element={<LoginScreen />} />
+            <Route path='/profile' element={<ProfileScreen />} />
             <Route path='/register' element={<RegisterScreen />} />
             <Route path='/createcontact' element={<CreateContact />} />
-            <Route path='/mypatients/:id' element={<SingleContacts/>} />
-            <Route path='/mypatients' element={<MyContacts search={search}/>} />
+            <Route path='/mypatients/:id' element={<SingleContacts />} />
+            <Route
+              path='/mypatients'
+              element={<MyContacts search={search} />}
+            />
           </Routes>
         </main>
         <Footer />

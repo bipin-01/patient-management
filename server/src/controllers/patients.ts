@@ -1,10 +1,10 @@
 import { Request, Response, NextFunction } from 'express';
+import { date } from 'joi';
 import ContactModel from '../models/contact';
 import Contact from '../models/contact';
 export async function fetchAll(req: any, res: Response, next: NextFunction) {
   try {
     const user: any = req.user._id;
-    console.log(user);
     const contacts = await ContactModel.find({ user: user });
 
     res.json(contacts);
@@ -26,7 +26,7 @@ export async function fetchById(
     if (id) {
       res.json(data);
     } else {
-      res.status(404).json({ message: 'Note not found' });
+      res.status(404).json({ message: 'Contact not found' });
     }
   } catch (error) {
     next(error);
@@ -34,17 +34,19 @@ export async function fetchById(
 }
 
 export async function create(req: any, res: Response, next?: NextFunction) {
-  const { title, content, category } = req.body;
+  const { name, email, number, pic, dateOfBirth } = req.body;
 
-  if (!title || !content || !category) {
+  if (!name || !email || !number) {
     res.status(400);
     throw new Error('Please fill all the fields');
   } else {
     const contact: any = new Contact({
       user: req.user._id,
-      title,
-      content,
-      category
+      name,
+      email,
+      number,
+      dateOfBirth,
+      pic
     });
     const createdNote = await contact.save();
 
@@ -53,21 +55,17 @@ export async function create(req: any, res: Response, next?: NextFunction) {
 }
 
 export async function update(req: any, res: Response, next?: NextFunction) {
-  const { title, content, category } = req.body;
+  const { name, email, number, pic, dateOfBirth } = req.body;
 
   const data = await ContactModel.findById(req.params.id);
 
-  // console.log(data)
-
-  // if (data.user.toString() !== req.user._id.toString()) {
-  //   res.status(401);
-  //   throw new Error("You can't perform this action");
-  // }
-
   if (data) {
-    data.title = title;
-    data.content = content;
-    data.category = category;
+    data.name = name;
+    data.email = email;
+    data.number = number;
+    data.pic = pic;
+    data.dateOfBirth = dateOfBirth;
+
 
     const updateData = await data.save();
 
@@ -80,16 +78,6 @@ export async function update(req: any, res: Response, next?: NextFunction) {
 
 export async function deleteById(req: any, res: any) {
   const data = await ContactModel.findById(req.params.id);
-
-  console.log(data);
-
-  console.log(data.user.toString(), 'user');
-  // console.log(req);
-
-  // if (data.user.toString() !== req.user._id.toString()) {
-  //   res.status(401);
-  //   throw new Error("You can't perform this action");
-  // }
 
   if (data) {
     await data.remove();

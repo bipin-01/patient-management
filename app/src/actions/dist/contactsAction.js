@@ -51,7 +51,9 @@ exports.listNotes = function () { return function (dispatch, getState) { return 
                 userInfo = getState().userLogin.userInfo;
                 config = {
                     headers: {
-                        Authorization: "Bearer " + userInfo.authData.data.token
+                        Authorization: "Bearer " + (userInfo.authData
+                            ? userInfo.authData.data.token
+                            : userInfo.data.token)
                     }
                 };
                 return [4 /*yield*/, axios_1["default"].get("/api/mypatients", config)];
@@ -74,7 +76,7 @@ exports.listNotes = function () { return function (dispatch, getState) { return 
         }
     });
 }); }; };
-exports.createContactAction = function (title, content, category) { return function (dispatch, getState) { return __awaiter(void 0, void 0, void 0, function () {
+exports.createContactAction = function (name, email, number, pic, dateOfBirth) { return function (dispatch, getState) { return __awaiter(void 0, void 0, void 0, function () {
     var userInfo, config, data, error_2, message;
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -87,10 +89,12 @@ exports.createContactAction = function (title, content, category) { return funct
                 config = {
                     headers: {
                         "Content-Type": "application/json",
-                        Authorization: "Bearer " + userInfo.authData.data.token
+                        Authorization: "Bearer " + (userInfo.authData
+                            ? userInfo.authData.data.token
+                            : userInfo.data.token)
                     }
                 };
-                return [4 /*yield*/, axios_1["default"].post("/api/mypatients/create", { title: title, content: content, category: category }, config)];
+                return [4 /*yield*/, axios_1["default"].post("/api/mypatients/create", { name: name, email: email, number: number, pic: pic, dateOfBirth: dateOfBirth }, config)];
             case 1:
                 data = (_a.sent()).data;
                 dispatch({
@@ -124,7 +128,9 @@ exports.deleteContactAction = function (id) { return function (dispatch, getStat
                 userInfo = getState().userLogin.userInfo;
                 config = {
                     headers: {
-                        Authorization: "Bearer " + userInfo.authData.data.token
+                        Authorization: "Bearer " + (userInfo.authData
+                            ? userInfo.authData.data.token
+                            : userInfo.data.token)
                     }
                 };
                 return [4 /*yield*/, axios_1["default"]["delete"]("/api/mypatients/" + id, config)];
@@ -149,7 +155,7 @@ exports.deleteContactAction = function (id) { return function (dispatch, getStat
         }
     });
 }); }; };
-exports.updateContactAction = function (id, title, content, category) { return function (dispatch, getState) { return __awaiter(void 0, void 0, void 0, function () {
+exports.updateContactAction = function (id, name, email, number, pic, dateOfBirth) { return function (dispatch, getState) { return __awaiter(void 0, void 0, void 0, function () {
     var userInfo, config, data, error_4, message;
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -162,10 +168,12 @@ exports.updateContactAction = function (id, title, content, category) { return f
                 config = {
                     headers: {
                         "Content-Type": "application/json",
-                        Authorization: "Bearer " + userInfo.authData.data.token
+                        Authorization: "Bearer " + (userInfo.authData
+                            ? userInfo.authData.data.token
+                            : userInfo.data.token)
                     }
                 };
-                return [4 /*yield*/, axios_1["default"].put("/api/mypatients/" + id, { title: title, content: content, category: category }, config)];
+                return [4 /*yield*/, axios_1["default"].put("/api/mypatients/" + id, { name: name, email: email, number: number, pic: pic, dateOfBirth: dateOfBirth }, config)];
             case 1:
                 data = (_a.sent()).data;
                 dispatch({

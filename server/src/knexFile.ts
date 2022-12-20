@@ -18,7 +18,7 @@ export const baseKnexConfig = {
 const knexConfig: Knex.Config = {
   ...baseKnexConfig,
   migrations: {
-    tableName: 'migrations_okr',
+    tableName: 'name-of-table',
     directory: 'database/migrations',
     stub: 'stub/migration.stub',
   },

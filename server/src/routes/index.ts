@@ -2,7 +2,6 @@ import { Router } from 'express';
 
 import config from 'config';
 
-import authMiddleware from 'middlewares/auth';
 
 import patientRoute from './patientRoute';
 import userRoutes from './userRoutes';

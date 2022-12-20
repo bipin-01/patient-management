@@ -49,12 +49,14 @@ var react_router_dom_2 = require("react-router-dom");
 function SingleNote(match) {
     var _this = this;
     var id = react_router_dom_2.useParams().id;
-    console.log(id, "this is id");
     var history = react_router_dom_1.useNavigate();
-    var _a = react_1.useState(""), title = _a[0], setTitle = _a[1];
-    var _b = react_1.useState(""), content = _b[0], setContent = _b[1];
-    var _c = react_1.useState(""), category = _c[0], setCategory = _c[1];
+    var _a = react_1.useState(""), name = _a[0], setName = _a[1];
+    var _b = react_1.useState(""), email = _b[0], setEmail = _b[1];
+    var _c = react_1.useState(""), number = _c[0], setNumber = _c[1];
     var _d = react_1.useState(""), date = _d[0], setDate = _d[1];
+    var _e = react_1.useState(""), picMessage = _e[0], setPicMessage = _e[1];
+    var _f = react_1.useState("https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"), pic = _f[0], setPic = _f[1];
+    var _g = react_1.useState(new Date()), dateOfBirth = _g[0], setDateOfBirth = _g[1];
     var dispatch = react_redux_1.useDispatch();
     var contactUpdate = react_redux_1.useSelector(function (state) { return state.contactsUpdate; });
     var loading = contactUpdate.loading, error = contactUpdate.error;
@@ -66,6 +68,31 @@ function SingleNote(match) {
         }
         history("/mypatients");
     };
+    var postDetails = function (pics) {
+        if (!pics) {
+            return setPicMessage("Please Select an Image");
+        }
+        setPicMessage("");
+        if (pics.type === "image/jpeg" || pics.type === "image/png") {
+            var data = new FormData();
+            data.append("file", pics);
+            data.append("upload_preset", "patientmanagement");
+            data.append("cloud_name", "dxlepos58");
+            fetch("https://api.cloudinary.com/v1_1/dxlepos58/image/upload", {
+                method: "POST",
+                body: data
+            })
+                .then(function (res) { return res.json(); })
+                .then(function (data) {
+                setPic(data.url.toString());
+            })["catch"](function (err) {
+                console.log(err);
+            });
+        }
+        else {
+            return setPic("Please Selct an image");
+        }
+    };
     react_1.useEffect(function () {
         var fetching = function () { return __awaiter(_this, void 0, void 0, function () {
             var data;
@@ -74,10 +101,12 @@ function SingleNote(match) {
                     case 0: return [4 /*yield*/, axios_1["default"].get("/api/mypatients/" + id)];
                     case 1:
                         data = (_a.sent()).data;
-                        setTitle(data.title);
-                        setContent(data.content);
-                        setCategory(data.category);
+                        setName(data.name);
+                        setEmail(data.email);
+                        setNumber(data.number);
                         setDate(data.updatedAt);
+                        setDateOfBirth(data.dateOfBirth);
+                        setPic(data.pic);
                         return [2 /*return*/];
                 }
             });
@@ -85,38 +114,52 @@ function SingleNote(match) {
         fetching();
     }, [id, date]);
     var resetHandler = function () {
-        setTitle("");
-        setCategory("");
-        setContent("");
+        setName("");
+        setNumber("");
+        setEmail("");
+        setDateOfBirth('');
+        setPic('');
     };
     var updateHandler = function (e) {
         e.preventDefault();
-        dispatch(contactsAction_1.updateContactAction(id, title, content, category));
-        if (!title || !content || !category)
+        dispatch(contactsAction_1.updateContactAction(id, name, email, number, pic, dateOfBirth));
+        if (!name || !email || !number)
             return;
         resetHandler();
         history("/mypatients");
     };
+    var backHandler = function (e) {
+        history("/mypatients");
+    };
     return (react_1["default"].createElement(MainScreen_1["default"], { title: 'Edit Note' },
         react_1["default"].createElement(react_bootstrap_1.Card, null,
-            react_1["default"].createElement(react_bootstrap_1.Card.Header, null, "Edit your Note"),
+            react_1["default"].createElement(react_bootstrap_1.Card.Header, null, "Edit your Contact"),
             react_1["default"].createElement(react_bootstrap_1.Card.Body, null,
                 react_1["default"].createElement(react_bootstrap_1.Form, { onSubmit: updateHandler },
                     loadingDelete && react_1["default"].createElement(Loading_1["default"], null),
                     error && react_1["default"].createElement(ErrorMessage_1["default"], { variant: 'danger' }, error),
                     errorDelete && (react_1["default"].createElement(ErrorMessage_1["default"], { variant: 'danger' }, errorDelete)),
-                    react_1["default"].createElement(react_bootstrap_1.Form.Group, { controlId: 'title' },
-                        react_1["default"].createElement(react_bootstrap_1.Form.Label, null, "Title"),
-                        react_1["default"].createElement(react_bootstrap_1.Form.Control, { type: 'title', placeholder: 'Enter the title', value: title, onChange: function (e) { return setTitle(e.target.value); } })),
+                    react_1["default"].createElement(react_bootstrap_1.Form.Group, { controlId: 'name' },
+                        react_1["default"].createElement(react_bootstrap_1.Form.Label, null, "Name"),
+                        react_1["default"].createElement(react_bootstrap_1.Form.Control, { type: 'name', placeholder: 'Enter the Name', value: name, onChange: function (e) { return setName(e.target.value); } })),
                     react_1["default"].createElement(react_bootstrap_1.Form.Group, { controlId: 'content' },
-                        react_1["default"].createElement(react_bootstrap_1.Form.Label, null, "Content"),
-                        react_1["default"].createElement(react_bootstrap_1.Form.Control, { placeholder: 'Enter the content', value: content, onChange: function (e) { return setContent(e.target.value); } })),
+                        react_1["default"].createElement(react_bootstrap_1.Form.Label, null, "Email"),
+                        react_1["default"].createElement(react_bootstrap_1.Form.Control, { placeholder: 'Enter the Email Address', value: email, onChange: function (e) { return setEmail(e.target.value); } })),
                     react_1["default"].createElement(react_bootstrap_1.Form.Group, { controlId: 'category' },
-                        react_1["default"].createElement(react_bootstrap_1.Form.Label, null, "Category"),
-                        react_1["default"].createElement(react_bootstrap_1.Form.Control, { type: 'content', placeholder: 'Enter the Category', value: category, onChange: function (e) { return setCategory(e.target.value); } })),
+                        react_1["default"].createElement(react_bootstrap_1.Form.Label, null, "Phone No:"),
+                        react_1["default"].createElement(react_bootstrap_1.Form.Control, { type: 'content', placeholder: 'Enter the Number', value: number, onChange: function (e) { return setNumber(e.target.value); } }),
+                        react_1["default"].createElement(react_bootstrap_1.Form.Group, { controlId: 'birth' },
+                            react_1["default"].createElement(react_bootstrap_1.Form.Label, null, "Date of Birth"),
+                            react_1["default"].createElement(react_bootstrap_1.Form.Control, { type: 'date', name: 'datepic', placeholder: 'DateRange', value: dateOfBirth, onChange: function (e) { return setDateOfBirth(e.target.value); } })),
+                        react_1["default"].createElement(react_bootstrap_1.Form.Group, { controlId: 'pic' },
+                            react_1["default"].createElement(react_bootstrap_1.Form.Label, null, "Profile Picture"),
+                            react_1["default"].createElement(react_bootstrap_1.Form.File, { onChange: function (e) {
+                                    postDetails(e.target.files[0]);
+                                }, id: 'custom-file', type: 'image/png', label: 'Upload Profile Picture', custom: true }))),
                     loading && react_1["default"].createElement(Loading_1["default"], { size: 50 }),
                     react_1["default"].createElement(react_bootstrap_1.Button, { variant: 'primary', type: 'submit' }, "Update Note"),
-                    react_1["default"].createElement(react_bootstrap_1.Button, { className: 'mx-2', variant: 'danger', onClick: function () { return deleteHandler(id); } }, "Delete Note"))),
+                    react_1["default"].createElement(react_bootstrap_1.Button, { className: 'mx-2', variant: 'danger', onClick: function () { return deleteHandler(id); } }, "Delete Note"),
+                    react_1["default"].createElement(react_bootstrap_1.Button, { variant: 'primary', className: 'mx-2', onClick: function () { return backHandler(id); } }, "Back"))),
             react_1["default"].createElement(react_bootstrap_1.Card.Footer, { className: 'text-muted' },
                 "Updated on - ",
                 date.substring(0, 10)))));

@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/react-bootstrap-date-picker": "^4.0.9",
     "concurrently": "^7.5.0"
   },
   "devDependencies": {

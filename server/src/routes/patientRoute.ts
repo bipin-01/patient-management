@@ -7,9 +7,9 @@ const router = Router();
 
 // router.post('/', UserController.create);
 router.get('/', protect, PatientController.fetchAll);
-router.get('/:id',PatientController.fetchById);
+router.get('/:id', PatientController.fetchById);
 router.post('/create', protect, PatientController.create);
-router.put('/:id',protect,  PatientController.update);
-router.delete('/:id', PatientController.deleteById);
+router.put('/:id', protect,  PatientController.update);
+router.delete('/:id', protect, PatientController.deleteById);
 
 export default router;

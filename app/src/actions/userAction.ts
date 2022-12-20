@@ -37,6 +37,7 @@ export const login = (email: any, password: any) => async (dispatch: any) => {
       config
     );
 
+
     dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
 
     localStorage.setItem("userInfo", JSON.stringify(data));
@@ -44,8 +45,8 @@ export const login = (email: any, password: any) => async (dispatch: any) => {
     dispatch({
       type: USER_LOGIN_FAIL,
       payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
+        error.response && error.response.data.error.message
+          ? error.response.data.error.message
           : error.message,
     });
   }
@@ -104,11 +105,15 @@ export const updateProfile =
       const config = {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${userInfo.token}`,
+          Authorization: `Bearer ${
+            userInfo.authData
+              ? userInfo.authData.data.token
+              : userInfo.token
+          }`,
         },
       };
 
-      const { data } = await axios.post("/api/users/profile", user, config);
+      const { data } = await axios.post("/api/user/profile", user, config);
 
       dispatch({ type: USER_UPDATE_SUCCESS, payload: data });
 

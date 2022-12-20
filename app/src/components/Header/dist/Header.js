@@ -25,14 +25,19 @@ function Header(_a) {
                 react_1["default"].createElement(react_bootstrap_1.Nav, { className: 'm-auto' },
                     react_1["default"].createElement(react_bootstrap_1.Form, { inline: true },
                         react_1["default"].createElement(react_bootstrap_1.FormControl, { type: 'text', placeholder: 'Search', className: 'mr-sm-2', onChange: function (e) { return setSearch(e.target.value); } }))),
-                react_1["default"].createElement(react_bootstrap_1.Nav, null,
+                userInfo ? (react_1["default"].createElement(react_bootstrap_1.Nav, null,
                     react_1["default"].createElement(react_1["default"].Fragment, null,
                         react_1["default"].createElement(react_bootstrap_1.Nav.Link, { href: '/mypatients' },
                             react_1["default"].createElement(react_router_dom_1.Link, { to: '/mypatients' }, "My Patients")),
-                        react_1["default"].createElement(react_bootstrap_1.NavDropdown, { title: "Bipin", id: 'collasible-nav-dropdown' },
+                        userInfo.data ? react_1["default"].createElement(react_bootstrap_1.NavDropdown, { title: userInfo.data.name, id: 'collasible-nav-dropdown' },
                             react_1["default"].createElement(react_bootstrap_1.NavDropdown.Item, { href: '/profile' }, "My Profile"),
                             react_1["default"].createElement(react_bootstrap_1.NavDropdown.Divider, null),
-                            react_1["default"].createElement(react_bootstrap_1.NavDropdown.Item, { onClick: logoutHandler }, "Logout"))),
-                    react_1["default"].createElement(react_bootstrap_1.Nav.Link, { href: '/login' }, "Login"))))));
+                            react_1["default"].createElement(react_bootstrap_1.NavDropdown.Item, { onClick: logoutHandler }, "Logout")) :
+                            react_1["default"].createElement(react_bootstrap_1.NavDropdown, { title: userInfo.name, id: 'collasible-nav-dropdown' },
+                                react_1["default"].createElement(react_bootstrap_1.NavDropdown.Item, { href: '/profile' }, "My Profile"),
+                                react_1["default"].createElement(react_bootstrap_1.NavDropdown.Divider, null),
+                                react_1["default"].createElement(react_bootstrap_1.NavDropdown.Item, { onClick: logoutHandler }, "Logout"))))) : (react_1["default"].createElement(react_bootstrap_1.Nav, null,
+                    react_1["default"].createElement(react_bootstrap_1.Nav.Link, { href: '/login' },
+                        react_1["default"].createElement(react_router_dom_1.Link, { to: '/login' }, "Login"))))))));
 }
 exports["default"] = Header;

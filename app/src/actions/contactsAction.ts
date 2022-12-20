@@ -23,13 +23,16 @@ export const listNotes: any = () => async(dispatch: any, getState: any) => {
         const {
             userLogin: { userInfo },
         } = getState();
-    
     const config = {
       headers: {
-        Authorization: `Bearer ${userInfo.authData.data.token}`,
+        Authorization: `Bearer ${
+          userInfo.authData
+            ? userInfo.authData.data.token
+            : userInfo.data.token
+        }`,
       },
     };
-
+    
     const { data } = await axios.get(`/api/mypatients`, config);
 
     dispatch({
@@ -46,7 +49,7 @@ export const listNotes: any = () => async(dispatch: any, getState: any) => {
 }
 }
 
-export const createContactAction: any = (title: any, content: any, category: any) => async (dispatch: any, getState: any) => {
+export const createContactAction: any = (name: any, email: any, number: any, pic: any, dateOfBirth: any) => async (dispatch: any, getState: any) => {
   try {
     dispatch({
       type: CONTACTS_CREATE_REQUEST,
@@ -55,16 +58,19 @@ export const createContactAction: any = (title: any, content: any, category: any
     const {
       userLogin: { userInfo },
     } = getState();
-
     const config = {
       headers: {
-        "Content-Type": "application/json", 
-        Authorization: `Bearer ${userInfo.authData.data.token}`,
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${
+          userInfo.authData
+            ? userInfo.authData.data.token
+            : userInfo.data.token
+        }`,
       },
     };
 
     const { data } = await axios.post(`/api/mypatients/create`, 
-    {title, content, category},
+    {name, email, number, pic, dateOfBirth},
     config);
 
     dispatch({
@@ -95,7 +101,11 @@ export const deleteContactAction: any = (id: any) => async (dispatch: any, getSt
 
     const config = {
       headers: {
-        Authorization: `Bearer ${userInfo.authData.data.token}`,
+        Authorization: `Bearer ${
+          userInfo.authData
+            ? userInfo.authData.data.token
+            : userInfo.data.token
+        }`,
       },
     };
 
@@ -118,8 +128,7 @@ export const deleteContactAction: any = (id: any) => async (dispatch: any, getSt
 };
 
 export const updateContactAction: any =
-  (id: any, title: any, content: any, category: any) => async (dispatch: any, getState: any) => {
-
+  (id: any, name: any, email: any, number: any, pic: any, dateOfBirth: any) => async (dispatch: any, getState: any) => {
     try {
       dispatch({
         type: CONTACTS_UPDATE_REQUEST,
@@ -128,19 +137,21 @@ export const updateContactAction: any =
         userLogin: { userInfo },
       } = getState();
 
-
-
-      const config = {    
+      const config = {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${userInfo.authData.data.token}`,
+          Authorization: `Bearer ${
+            userInfo.authData
+              ? userInfo.authData.data.token
+              : userInfo.data.token
+          }`,
         },
       };
 
 
       const { data } = await axios.put(
         `/api/mypatients/${id}`,
-        { title, content, category },
+        { name, email, number, pic, dateOfBirth },
         config
       );
       dispatch({

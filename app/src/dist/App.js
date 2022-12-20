@@ -11,6 +11,7 @@ var LoginScreen_1 = require("./components/Screens/LoginScreen/LoginScreen");
 var RegisterScreen_1 = require("./components/Screens/RegisterScreen/RegisterScreen");
 var CreateContact_1 = require("./components/Screens/CreateContact/CreateContact");
 var SingleContacts_1 = require("./components/Screens/SingleContacts/SingleContacts");
+var ProfileScreen_1 = require("./components/Screens/ProfileScreen/ProfileScreen");
 function App() {
     var _a = react_1.useState(''), search = _a[0], setSearch = _a[1];
     return (react_1["default"].createElement(react_1["default"].Fragment, null,
@@ -20,6 +21,7 @@ function App() {
                 react_1["default"].createElement(react_router_dom_1.Routes, null,
                     react_1["default"].createElement(react_router_dom_1.Route, { path: '/', element: react_1["default"].createElement(LandingPage_1["default"], null) }),
                     react_1["default"].createElement(react_router_dom_1.Route, { path: '/login', element: react_1["default"].createElement(LoginScreen_1["default"], null) }),
+                    react_1["default"].createElement(react_router_dom_1.Route, { path: '/profile', element: react_1["default"].createElement(ProfileScreen_1["default"], null) }),
                     react_1["default"].createElement(react_router_dom_1.Route, { path: '/register', element: react_1["default"].createElement(RegisterScreen_1["default"], null) }),
                     react_1["default"].createElement(react_router_dom_1.Route, { path: '/createcontact', element: react_1["default"].createElement(CreateContact_1["default"], null) }),
                     react_1["default"].createElement(react_router_dom_1.Route, { path: '/mypatients/:id', element: react_1["default"].createElement(SingleContacts_1["default"], null) }),

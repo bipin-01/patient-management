@@ -7,12 +7,13 @@ import "./LandingPage.css";
 function LandingPage() {
   const history = useNavigate();
 
-  // useEffect(() => {
-  //   const userInfo: any = localStorage.getItem("userInfo");
-  //   if (userInfo) {
-  //     history("/mypatients");
-  //   }
-  // }, [history]);
+  
+  useEffect(() => {
+    const userInfo: any = localStorage.getItem("userInfo");
+    if (userInfo) {
+      history("/mypatients");
+    }
+  }, [history]);
   return (
     <div className='main'>
       <Container>

@@ -12,24 +12,24 @@ const serverConfig = {
     version: process.env.APP_VERSION,
     baseURL: process.env.APP_BASE_URL
   },
-  database: {
-    client: process.env.DB_CLIENT,
-    port: +process.env.DB_PORT,
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
-    charset: 'utf8',
-    timezone: 'UTC'
-  },
-  auth: {
-    clientId: process.env.AUTH_CLIENT_ID,
-    authURL: process.env.AUTH_URL
-  },
-  sentry: {
-    dsn: process.env.SENTRY_DSN,
-    environment: process.env.SENTRY_ENVIRONMENT || process.env.NODE_ENV
-  }
+  // database: {
+  //   client: process.env.DB_CLIENT,
+  //   port: +process.env.DB_PORT,
+  //   host: process.env.DB_HOST,
+  //   user: process.env.DB_USER,
+  //   password: process.env.DB_PASSWORD,
+  //   database: process.env.DB_NAME,
+  //   charset: 'utf8',
+  //   timezone: 'UTC'
+  // },
+  // auth: {
+  //   clientId: process.env.AUTH_CLIENT_ID,
+  //   authURL: process.env.AUTH_URL
+  // },
+  // sentry: {
+  //   dsn: process.env.SENTRY_DSN,
+  //   environment: process.env.SENTRY_ENVIRONMENT || process.env.NODE_ENV
+  // }
 };
 
 export default serverConfig;
