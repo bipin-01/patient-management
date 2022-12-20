@@ -1,4 +1,4 @@
-Patient Management
+# Patient Management
 
 Features:
 
@@ -12,8 +12,7 @@ Features:
   - Show User profile
   - Edit User Profile
 
-Setup: 
-
+# Setup: 
 The patient management is the root directory
     - Contains client side and Server side
     - app is the client module and server is the server module
