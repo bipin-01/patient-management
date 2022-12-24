@@ -13,7 +13,7 @@ function Loading({ size = 100 }) {
         height: "100%",
       }}
     >
-      <Spinner
+      <Spinner data-testid='spinner'
         style={{
           width: size,
           height: size,

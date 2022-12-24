@@ -3,11 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "proxy": "http://127.0.0.1:8848",
-  "jest": {
-    "testPathIgnorePatterns" : [
-      "<rootDir>/src/dist/**/*.js" 
-    ]
-  },
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -39,7 +34,9 @@
     "eject": "react-scripts eject",
     "coverage": "npm test --coverage --collectCoverageFrom=src/**/**/*.{tsx,ts}  --collectCoverageFrom=!src/**/dist/**",
     "allCoverage": "npm run test -- --coverage --watchAll=false",
-    "test3" : "react-scripts test --env=jsdom --coverage --collectCoverageFrom=src/**/*.tsx --collectCoverageFrom=!src/path/to/file"
+    "test3" : "react-scripts test --env=jsdom --coverage --collectCoverageFrom=src/**/*.tsx --collectCoverageFrom=!src/path/to/file",
+    "test6": "jest"
+
   },
   "eslintConfig": {
     "extends": [
