@@ -15,10 +15,10 @@ function App() {
 
   const [ search, setSearch ] = useState<any>('');
   return (
-    <>
-      <BrowserRouter>
+    <div data-testid="app">
         <Header setSearch={setSearch} />
         <main style={{ minHeight: "88vh" }}>
+
           <Routes>
             <Route path='/' element={<LandingPage />} />
             <Route path='/login' element={<LoginScreen />} />
@@ -33,8 +33,7 @@ function App() {
           </Routes>
         </main>
         <Footer />
-      </BrowserRouter>
-    </>
+    </div>
   );
 }
 
